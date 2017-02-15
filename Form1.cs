@@ -23,8 +23,27 @@ namespace ToleranceCalculator
             Double input = Convert.ToDouble(txtInput.Text);
             lblOutput.Text = input.ToString();
 
-            //Did the pull work?
 
         }
+
+        private void txtInput_TextChanged(object sender, EventArgs e)
+        {
+            //this.btnSolve.Enabled = !string.IsNullOrWhiteSpace(this.txtVolume.Text);
+            //lblVtarget.ForeColor = Color.Green;
+            //lblin3.forecolor = color.green;
+
+            if (txtInput.Text.Contains('+'))
+            {
+                lblPlusOrMinus.Visible = true;
+                txtPlusOrMinus.Visible = true;
+            }
+        }
+
+        private void btnCancel_Click_1(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
+
+
     }
 }
