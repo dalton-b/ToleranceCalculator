@@ -19,6 +19,7 @@ namespace ToleranceCalculator
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
+            //Just display the input. Test
             Double input = Convert.ToDouble(txtInput.Text);
             lblOutput.Text = input.ToString();
 
