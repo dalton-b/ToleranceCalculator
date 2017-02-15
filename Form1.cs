@@ -20,6 +20,7 @@ namespace ToleranceCalculator
         //If enter is clicked
         private void btnEnter_Click(object sender, EventArgs e)
         {
+
             //Store the nominal input
             Double input = Convert.ToDouble(txtInput.Text);
 
@@ -27,12 +28,19 @@ namespace ToleranceCalculator
             Double tolUpper = .1;
             Double tolLower = .1;
 
+            clearOutput();
+
             //If the plus and minus textboxes are not empty, use those values
             if(!string.IsNullOrWhiteSpace(txtPlus.Text) && !string.IsNullOrWhiteSpace(txtMinus.Text))
             {
                 //Store the upper and lower tolerance limit
                 tolUpper = Convert.ToDouble(txtPlus.Text);
                 tolLower = Convert.ToDouble(txtMinus.Text);
+
+                lblPlusTol.Visible = true;
+                lblPlusTol.Text = "+" + txtPlus.Text;
+                lblMinusTol.Visible = true;
+                lblMinusTol.Text = "-" + txtMinus.Text;
             }
             //If the plusOrMinus textbox is not empty, use that value
             else if(!string.IsNullOrWhiteSpace(txtPlusOrMinus.Text))
@@ -40,6 +48,16 @@ namespace ToleranceCalculator
                 //tolUpper = tolLower because it is a symmetric tolerance
                 tolUpper = Convert.ToDouble(txtPlusOrMinus.Text);
                 tolLower = Convert.ToDouble(txtPlusOrMinus.Text);
+
+                lblPOMTol.Visible = true;
+                lblPOMTol.Text = "±" + txtPlusOrMinus.Text;
+            }
+            else
+            {
+                lblPlusTol.Visible = true;
+                lblPlusTol.Text = "+" + tolUpper;
+                lblMinusTol.Visible = true;
+                lblMinusTol.Text = "-" + tolLower;
             }
 
             //Apply the tolerances to the nominal value
@@ -47,7 +65,13 @@ namespace ToleranceCalculator
             double outputLower = input - tolLower;
 
             //Display the output
-            lblOutput.Text = outputUpper.ToString() + "\n" + outputLower.ToString();
+            lblOutput.Text   = outputUpper.ToString() + "\n" + outputLower.ToString();
+            lblOutput.Visible = true;
+            lblNominal.Visible = true;
+            lblNominal.Text = input.ToString();
+            lblEquals.Visible = true;
+
+            clearInput();
 
         }
 
@@ -99,5 +123,40 @@ namespace ToleranceCalculator
         {
             Application.Exit();
         }
+
+
+        private void clearInput()
+        {
+
+
+            txtInput.Clear();
+            txtPlusOrMinus.Clear();
+            txtPlusOrMinus.Visible = false;
+            lblPlusOrMinus.Visible = false;
+            txtPlus.Clear();
+            lblPlus.Visible = false;
+            txtPlus.Visible = false;
+            txtMinus.Clear();
+            txtMinus.Visible = false;
+            lblMinus.Visible = false;
+
+            txtInput.Focus();
+
+        }
+
+        private void clearOutput()
+        {
+            lblNominal.Text = "";
+            lblNominal.Visible = false;
+            lblPlusTol.Text = "";
+            lblMinusTol.Text = "";
+            lblPlusTol.Visible = false;
+            lblMinusTol.Visible = false;
+            lblPOMTol.Visible = false;
+            lblPOMTol.Text = "";
+            lblOutput.Text = "";
+            lblOutput.Visible = false;
+        }
+
     }
 }
