@@ -48,27 +48,28 @@
             this.btnEnter.Location = new System.Drawing.Point(177, 260);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(75, 23);
-            this.btnEnter.TabIndex = 0;
+            this.btnEnter.TabIndex = 2;
             this.btnEnter.Text = "Enter";
             this.btnEnter.UseVisualStyleBackColor = true;
             this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(258, 260);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click_1);
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSettings
             // 
             this.btnSettings.Location = new System.Drawing.Point(12, 260);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(75, 23);
-            this.btnSettings.TabIndex = 2;
+            this.btnSettings.TabIndex = 4;
             this.btnSettings.Text = "Settings...";
             this.btnSettings.UseVisualStyleBackColor = true;
             // 
@@ -77,7 +78,7 @@
             this.txtInput.Location = new System.Drawing.Point(6, 48);
             this.txtInput.Name = "txtInput";
             this.txtInput.Size = new System.Drawing.Size(76, 20);
-            this.txtInput.TabIndex = 3;
+            this.txtInput.TabIndex = 1;
             this.txtInput.TextChanged += new System.EventHandler(this.txtInput_TextChanged);
             // 
             // lblOutput
@@ -96,6 +97,7 @@
             this.txtPlusOrMinus.Size = new System.Drawing.Size(100, 20);
             this.txtPlusOrMinus.TabIndex = 5;
             this.txtPlusOrMinus.Visible = false;
+            this.txtPlusOrMinus.TextChanged += new System.EventHandler(this.txtPlusOrMinus_TextChanged);
             // 
             // txtPlus
             // 
@@ -161,8 +163,10 @@
             // 
             // Form1
             // 
+            this.AcceptButton = this.btnEnter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(345, 295);
             this.Controls.Add(this.grpInput);
             this.Controls.Add(this.lblOutput);
