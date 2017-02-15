@@ -23,6 +23,8 @@ namespace ToleranceCalculator
             Double input = Convert.ToDouble(txtInput.Text);
             lblOutput.Text = input.ToString();
 
+            //Did the pull work?
+
         }
     }
 }
