@@ -122,6 +122,21 @@ namespace ToleranceCalculator
                 txtPlusOrMinus.Focus();
             }
 
+            //Check for a '-' character
+            if(txtInput.Text.Contains('-'))
+            {
+                //Make the plus or minus options visible
+                txtPlus.Visible = true;
+                txtMinus.Visible = true;
+                lblPlus.Visible = true;
+                lblMinus.Visible = true;
+
+                //Get rid of the '-' character
+                txtInput.Text = txtInput.Text.Substring(0, txtInput.Text.Length - 1);
+
+                txtPlus.Focus();
+            }
+
         }
 
         //When the plusOrMinus textbox is changed
