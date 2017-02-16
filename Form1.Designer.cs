@@ -49,7 +49,6 @@
             this.grpInput.SuspendLayout();
             this.grpOutput.SuspendLayout();
             this.SuspendLayout();
-            this.settings = new SettingsForm();
             // 
             // btnEnter
             // 
@@ -261,6 +260,7 @@
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnEnter);
+            this.Location = new System.Drawing.Point(100, 100);
             this.Name = "Form1";
             this.Text = "Form1";
             this.grpInput.ResumeLayout(false);
@@ -291,7 +291,6 @@
         private System.Windows.Forms.Label lblMinusTol;
         private System.Windows.Forms.Label lblPlusTol;
         private System.Windows.Forms.Label lblOutput;
-        private SettingsForm settings;
     }
 }
 

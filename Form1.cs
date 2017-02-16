@@ -13,10 +13,17 @@ namespace ToleranceCalculator
 {
     public partial class Form1 : Form
     {
+        //Declare the settings window
+        private SettingsForm _settings;
+        
         public Form1()
         {
             InitializeComponent();
-            
+
+            //Create an instance of the settings window
+            //and set the default output decimal places
+            _settings = new SettingsForm();
+            _settings.cmbDecPlaces.SelectedIndex = 3;
         }
 
         //If enter is clicked
@@ -28,9 +35,10 @@ namespace ToleranceCalculator
 
 
             //Initialize default tolerance values
-            Double tolUpper = .1;
-            Double tolLower = .1;
+            Double tolUpper = Convert.ToDouble(_settings.txtDefaultTol.Text);
+            Double tolLower = Convert.ToDouble(_settings.txtDefaultTol.Text);
 
+            //Clear the output window when new input is received
             clearOutput();
 
             //If the plus and minus textboxes are not empty, use those values
@@ -40,6 +48,7 @@ namespace ToleranceCalculator
                 tolUpper = Convert.ToDouble(txtPlus.Text);
                 tolLower = Convert.ToDouble(txtMinus.Text);
 
+                //Display text in the output window
                 lblPlusTol.Visible = true;
                 lblPlusTol.Text = "+" + txtPlus.Text;
                 lblMinusTol.Visible = true;
@@ -52,11 +61,13 @@ namespace ToleranceCalculator
                 tolUpper = Convert.ToDouble(txtPlusOrMinus.Text);
                 tolLower = Convert.ToDouble(txtPlusOrMinus.Text);
 
+                //Display text in the output window
                 lblPOMTol.Visible = true;
                 lblPOMTol.Text = "±" + txtPlusOrMinus.Text;
             }
             else
             {
+                //Display text in the output window
                 lblPlusTol.Visible = true;
                 lblPlusTol.Text = "+" + tolUpper;
                 lblMinusTol.Visible = true;
@@ -67,21 +78,29 @@ namespace ToleranceCalculator
             double outputUpper = input + tolUpper;
             double outputLower = input - tolLower;
 
-            if (settings.chkConvert.Checked == true)
+            //Convert to metric if the checkbox is checked in the settings
+            if (_settings.chkConvert.Checked == true)
             {
                 outputUpper = outputUpper / 25.4;
                 outputLower = outputLower / 25.4;
             }
 
-            Debug.WriteLine(settings.cmbDecPlaces.SelectedItem.ToString());
+            //Decimal places to round off
+            int decPlaces = Convert.ToInt32(_settings.cmbDecPlaces.SelectedItem);
 
-            //Display the output
-            lblOutput.Text   = outputUpper.ToString("N" + settings.cmbDecPlaces.SelectedItem) + "\n" + outputLower.ToString("N" + settings.cmbDecPlaces.SelectedItem);
+            //Round appropriately (truncate upper bound, round up lower bound
+            outputUpper = Math.Floor(outputUpper * Math.Pow(10, decPlaces))/Math.Pow(10, decPlaces);
+            outputLower = Math.Ceiling(outputLower * Math.Pow(10, decPlaces)) / Math.Pow(10, decPlaces);
+
+
+            //Display the output, formatted to the correct number of decimal places
+            lblOutput.Text   = outputUpper.ToString("N" + decPlaces) + "\n" + outputLower.ToString("N" + decPlaces);
             lblOutput.Visible = true;
             lblNominal.Visible = true;
             lblNominal.Text = input.ToString();
             lblEquals.Visible = true;
 
+            //Clear the input window
             clearInput();
 
         }
@@ -129,10 +148,10 @@ namespace ToleranceCalculator
             }
         }
 
-
+        //Show the settings window when the settings button is clicked
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            settings.Show();
+            _settings.Show();
         }
 
 
@@ -142,11 +161,9 @@ namespace ToleranceCalculator
             Application.Exit();
         }
 
-
+        //Reset the input window to its initial state
         private void clearInput()
         {
-
-
             txtInput.Clear();
             txtPlusOrMinus.Clear();
             txtPlusOrMinus.Visible = false;
@@ -162,6 +179,7 @@ namespace ToleranceCalculator
 
         }
 
+        //Reset the output window to its initial state
         private void clearOutput()
         {
             lblNominal.Text = "";
@@ -175,7 +193,6 @@ namespace ToleranceCalculator
             lblOutput.Text = "";
             lblOutput.Visible = false;
         }
-
 
     }
 }
