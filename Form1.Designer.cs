@@ -49,6 +49,7 @@
             this.grpInput.SuspendLayout();
             this.grpOutput.SuspendLayout();
             this.SuspendLayout();
+            this.settings = new SettingsForm();
             // 
             // btnEnter
             // 
@@ -79,6 +80,7 @@
             this.btnSettings.TabIndex = 4;
             this.btnSettings.Text = "Settings...";
             this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // txtInput
             // 
@@ -289,6 +291,7 @@
         private System.Windows.Forms.Label lblMinusTol;
         private System.Windows.Forms.Label lblPlusTol;
         private System.Windows.Forms.Label lblOutput;
+        private SettingsForm settings;
     }
 }
 

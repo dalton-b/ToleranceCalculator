@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace ToleranceCalculator
         public Form1()
         {
             InitializeComponent();
+            
         }
 
         //If enter is clicked
@@ -23,6 +25,7 @@ namespace ToleranceCalculator
 
             //Store the nominal input
             Double input = Convert.ToDouble(txtInput.Text);
+
 
             //Initialize default tolerance values
             Double tolUpper = .1;
@@ -64,8 +67,16 @@ namespace ToleranceCalculator
             double outputUpper = input + tolUpper;
             double outputLower = input - tolLower;
 
+            if (settings.chkConvert.Checked == true)
+            {
+                outputUpper = outputUpper / 25.4;
+                outputLower = outputLower / 25.4;
+            }
+
+            Debug.WriteLine(settings.cmbDecPlaces.SelectedItem.ToString());
+
             //Display the output
-            lblOutput.Text   = outputUpper.ToString() + "\n" + outputLower.ToString();
+            lblOutput.Text   = outputUpper.ToString("N" + settings.cmbDecPlaces.SelectedItem) + "\n" + outputLower.ToString("N" + settings.cmbDecPlaces.SelectedItem);
             lblOutput.Visible = true;
             lblNominal.Visible = true;
             lblNominal.Text = input.ToString();
@@ -118,6 +129,13 @@ namespace ToleranceCalculator
             }
         }
 
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            settings.Show();
+        }
+
+
         //Close the program
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -157,6 +175,7 @@ namespace ToleranceCalculator
             lblOutput.Text = "";
             lblOutput.Visible = false;
         }
+
 
     }
 }
